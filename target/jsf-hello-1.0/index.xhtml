@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:insert name="metadata"/>
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>
+        JSF Hello Program
+    </title>
+</h:head>
+<h:body>
+    <f:view>
+        <h:form>
+            <h:outputLabel for="managedBean" value="Enter text in textbox below"/>
+            <br/>
+            <h:inputText id="managedBean" value="#{managedBean.text}">
+                <f:ajax event="keyup" render="text"/>
+            </h:inputText>
+        </h:form>
+        <br/>
+        <h:outputText id="display-message" value="Display the text entered"/>
+        <br/>
+        <h:outputText id="text" value="${managedBean.text}"/>
+    </f:view>
+</h:body>
+</html>
