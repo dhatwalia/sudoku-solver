@@ -1,2 +1,2 @@
-# jsf-hello
-This is the JSF Hello World program for Week 4
+# Sudoku Solver
+This is our JSF project for Week 8
