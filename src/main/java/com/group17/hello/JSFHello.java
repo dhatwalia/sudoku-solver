@@ -8,8 +8,16 @@ import java.io.Serializable;
 public class JSFHello implements Serializable {
     private String text;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     private int[][] board = {
-            { 1,2,3, 4,5,6, 7,8,9 },
+            { 0,0,3, 4,5,6, 7,8,9 },
             { 4,5,6, 7,8,9, 1,2,3 },
             { 7,8,9, 1,2,3, 4,5,6 },
             { 2,3,1, 5,6,4, 8,9,7 },
@@ -18,14 +26,6 @@ public class JSFHello implements Serializable {
             { 3,1,2, 6,4,5, 9,7,8 },
             { 6,4,5, 9,7,8, 3,1,2 },
             { 9,7,8, 3,1,2, 6,4,5 } };
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public int[][] getBoard() {
         return board;
