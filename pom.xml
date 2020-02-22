@@ -6,15 +6,15 @@
   <!-- basic information -->
 
   <groupId>com.group17.hello</groupId>
-  <artifactId>jsf-hello</artifactId>
+  <artifactId>sudoku</artifactId>
   <version>1.0</version>
   <packaging>war</packaging>
 
   <!-- Project information -->
 
-  <name>JSF Hello</name>
+  <name>Sudoku</name>
   <description>
-    This is Java Server Face (JSF) program. It says "Hello World" 
+    This is Java Server Face (JSF) program. It generates a Sudoku and verifies the correctness of the user's solution.
   </description>
 
   <properties>

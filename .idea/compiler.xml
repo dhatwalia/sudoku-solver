@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jsf-hello" />
+        <module name="sudoku" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jsf-hello" target="1.6" />
+      <module name="sudoku" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

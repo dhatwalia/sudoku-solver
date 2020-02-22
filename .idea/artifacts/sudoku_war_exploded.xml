@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="jsf-hello:war exploded">
-    <output-path>$PROJECT_DIR$/target/jsf-hello-1.0</output-path>
+  <artifact type="exploded-war" name="sudoku:war exploded">
+    <output-path>$PROJECT_DIR$/target/sudoku-1.0</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>jsf-hello</module>
+        <module>sudoku</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="jsf-hello" />
+          <element id="module-output" name="sudoku" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.apache.myfaces.core:myfaces-api:2.0.5" />
@@ -24,9 +24,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/jsf-hello-1.0/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/sudoku-1.0/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="jsf-hello/web/Web" />
+      <element id="javaee-facet-resources" facet="sudoku/web/Web" />
     </root>
   </artifact>
 </component>

@@ -1,0 +1,8 @@
+.sudoku {
+    width: 25px;
+    font-size: 18px;
+}
+
+.greyed {
+    background-color: lightgrey;
+}
