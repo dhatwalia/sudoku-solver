@@ -13,9 +13,21 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </h:head>
 <h:body>
+
+    <div align="center">
+        <h1 id="timer" style="visibility: hidden">00:00:00</h1>
+        <h3>Please select a difficulty</h3>
+        <h:selectOneMenu value = "#{managedBean.data}">
+            <f:selectItem itemValue = "1" itemLabel = "Easy" />
+            <f:selectItem itemValue = "2" itemLabel = "Moderate" />
+            <f:selectItem itemValue = "3" itemLabel = "Difficult" />
+        </h:selectOneMenu>
+        <input type="button" id="startButton" value="Play" style="visibility:visible" onClick="startGame(this.form);" />
+    </div>
+
     <f:view>
         <h:form id="sudoku_form">
-            <table align="center">
+            <table align="center" id="table" style="visibility:hidden">
                 <!--We need to find a way to iterate through all 81 elements-->
                 <tr>
                     <td>
@@ -463,11 +475,228 @@
                 <tr><td></td></tr>
             </table>
             <div align="center">
-                <h:commandButton value="Submit my solution"  onclick="checkSudoku(this.form)"/>
+                <input type="button" id="submitButton" value="Submit solution" style="visibility:hidden" onClick="checkSudoku(this.form);" />
             </div>
         </h:form>
 
         <script type="text/javascript">
+
+            function startGame(form){/*
+                let userBoard = [
+                    [
+                        form["sudoku_form:managedBean00"].value,
+                        form["sudoku_form:managedBean01"].value,
+                        form["sudoku_form:managedBean02"].value,
+                        form["sudoku_form:managedBean03"].value,
+                        form["sudoku_form:managedBean04"].value,
+                        form["sudoku_form:managedBean05"].value,
+                        form["sudoku_form:managedBean06"].value,
+                        form["sudoku_form:managedBean07"].value,
+                        form["sudoku_form:managedBean08"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean10"].value,
+                        form["sudoku_form:managedBean11"].value,
+                        form["sudoku_form:managedBean12"].value,
+                        form["sudoku_form:managedBean13"].value,
+                        form["sudoku_form:managedBean14"].value,
+                        form["sudoku_form:managedBean15"].value,
+                        form["sudoku_form:managedBean16"].value,
+                        form["sudoku_form:managedBean17"].value,
+                        form["sudoku_form:managedBean18"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean20"].value,
+                        form["sudoku_form:managedBean21"].value,
+                        form["sudoku_form:managedBean22"].value,
+                        form["sudoku_form:managedBean23"].value,
+                        form["sudoku_form:managedBean24"].value,
+                        form["sudoku_form:managedBean25"].value,
+                        form["sudoku_form:managedBean26"].value,
+                        form["sudoku_form:managedBean27"].value,
+                        form["sudoku_form:managedBean28"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean30"].value,
+                        form["sudoku_form:managedBean31"].value,
+                        form["sudoku_form:managedBean32"].value,
+                        form["sudoku_form:managedBean33"].value,
+                        form["sudoku_form:managedBean34"].value,
+                        form["sudoku_form:managedBean35"].value,
+                        form["sudoku_form:managedBean36"].value,
+                        form["sudoku_form:managedBean37"].value,
+                        form["sudoku_form:managedBean38"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean40"].value,
+                        form["sudoku_form:managedBean41"].value,
+                        form["sudoku_form:managedBean42"].value,
+                        form["sudoku_form:managedBean43"].value,
+                        form["sudoku_form:managedBean44"].value,
+                        form["sudoku_form:managedBean45"].value,
+                        form["sudoku_form:managedBean46"].value,
+                        form["sudoku_form:managedBean47"].value,
+                        form["sudoku_form:managedBean48"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean50"].value,
+                        form["sudoku_form:managedBean51"].value,
+                        form["sudoku_form:managedBean52"].value,
+                        form["sudoku_form:managedBean53"].value,
+                        form["sudoku_form:managedBean54"].value,
+                        form["sudoku_form:managedBean55"].value,
+                        form["sudoku_form:managedBean56"].value,
+                        form["sudoku_form:managedBean57"].value,
+                        form["sudoku_form:managedBean58"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean60"].value,
+                        form["sudoku_form:managedBean61"].value,
+                        form["sudoku_form:managedBean62"].value,
+                        form["sudoku_form:managedBean63"].value,
+                        form["sudoku_form:managedBean64"].value,
+                        form["sudoku_form:managedBean65"].value,
+                        form["sudoku_form:managedBean66"].value,
+                        form["sudoku_form:managedBean67"].value,
+                        form["sudoku_form:managedBean68"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean70"].value,
+                        form["sudoku_form:managedBean71"].value,
+                        form["sudoku_form:managedBean72"].value,
+                        form["sudoku_form:managedBean73"].value,
+                        form["sudoku_form:managedBean74"].value,
+                        form["sudoku_form:managedBean75"].value,
+                        form["sudoku_form:managedBean76"].value,
+                        form["sudoku_form:managedBean77"].value,
+                        form["sudoku_form:managedBean78"].value
+                    ],
+                    [
+                        form["sudoku_form:managedBean80"].value,
+                        form["sudoku_form:managedBean81"].value,
+                        form["sudoku_form:managedBean82"].value,
+                        form["sudoku_form:managedBean83"].value,
+                        form["sudoku_form:managedBean84"].value,
+                        form["sudoku_form:managedBean85"].value,
+                        form["sudoku_form:managedBean86"].value,
+                        form["sudoku_form:managedBean87"].value,
+                        form["sudoku_form:managedBean88"].value
+                    ],
+                ]
+                let solvedBoard = [
+                    [
+                        #{managedBean.solvedBoard[0][0]},
+                        #{managedBean.solvedBoard[0][1]},
+                        #{managedBean.solvedBoard[0][2]},
+                        #{managedBean.solvedBoard[0][3]},
+                        #{managedBean.solvedBoard[0][4]},
+                        #{managedBean.solvedBoard[0][5]},
+                        #{managedBean.solvedBoard[0][6]},
+                        #{managedBean.solvedBoard[0][7]},
+                        #{managedBean.solvedBoard[0][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[1][0]},
+                        #{managedBean.solvedBoard[1][1]},
+                        #{managedBean.solvedBoard[1][2]},
+                        #{managedBean.solvedBoard[1][3]},
+                        #{managedBean.solvedBoard[1][4]},
+                        #{managedBean.solvedBoard[1][5]},
+                        #{managedBean.solvedBoard[1][6]},
+                        #{managedBean.solvedBoard[1][7]},
+                        #{managedBean.solvedBoard[1][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[2][0]},
+                        #{managedBean.solvedBoard[2][1]},
+                        #{managedBean.solvedBoard[2][2]},
+                        #{managedBean.solvedBoard[2][3]},
+                        #{managedBean.solvedBoard[2][4]},
+                        #{managedBean.solvedBoard[2][5]},
+                        #{managedBean.solvedBoard[2][6]},
+                        #{managedBean.solvedBoard[2][7]},
+                        #{managedBean.solvedBoard[2][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[3][0]},
+                        #{managedBean.solvedBoard[3][1]},
+                        #{managedBean.solvedBoard[3][2]},
+                        #{managedBean.solvedBoard[3][3]},
+                        #{managedBean.solvedBoard[3][4]},
+                        #{managedBean.solvedBoard[3][5]},
+                        #{managedBean.solvedBoard[3][6]},
+                        #{managedBean.solvedBoard[3][7]},
+                        #{managedBean.solvedBoard[3][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[4][0]},
+                        #{managedBean.solvedBoard[4][1]},
+                        #{managedBean.solvedBoard[4][2]},
+                        #{managedBean.solvedBoard[4][3]},
+                        #{managedBean.solvedBoard[4][4]},
+                        #{managedBean.solvedBoard[4][5]},
+                        #{managedBean.solvedBoard[4][6]},
+                        #{managedBean.solvedBoard[4][7]},
+                        #{managedBean.solvedBoard[4][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[5][0]},
+                        #{managedBean.solvedBoard[5][1]},
+                        #{managedBean.solvedBoard[5][2]},
+                        #{managedBean.solvedBoard[5][3]},
+                        #{managedBean.solvedBoard[5][4]},
+                        #{managedBean.solvedBoard[5][5]},
+                        #{managedBean.solvedBoard[5][6]},
+                        #{managedBean.solvedBoard[5][7]},
+                        #{managedBean.solvedBoard[5][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[6][0]},
+                        #{managedBean.solvedBoard[6][1]},
+                        #{managedBean.solvedBoard[6][2]},
+                        #{managedBean.solvedBoard[6][3]},
+                        #{managedBean.solvedBoard[6][4]},
+                        #{managedBean.solvedBoard[6][5]},
+                        #{managedBean.solvedBoard[6][6]},
+                        #{managedBean.solvedBoard[6][7]},
+                        #{managedBean.solvedBoard[6][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[7][0]},
+                        #{managedBean.solvedBoard[7][1]},
+                        #{managedBean.solvedBoard[7][2]},
+                        #{managedBean.solvedBoard[7][3]},
+                        #{managedBean.solvedBoard[7][4]},
+                        #{managedBean.solvedBoard[7][5]},
+                        #{managedBean.solvedBoard[7][6]},
+                        #{managedBean.solvedBoard[7][7]},
+                        #{managedBean.solvedBoard[7][8]}
+                    ],
+                    [
+                        #{managedBean.solvedBoard[8][0]},
+                        #{managedBean.solvedBoard[8][1]},
+                        #{managedBean.solvedBoard[8][2]},
+                        #{managedBean.solvedBoard[8][3]},
+                        #{managedBean.solvedBoard[8][4]},
+                        #{managedBean.solvedBoard[8][5]},
+                        #{managedBean.solvedBoard[8][6]},
+                        #{managedBean.solvedBoard[8][7]},
+                        #{managedBean.solvedBoard[8][8]}
+                    ]
+                ]
+                */
+                if (true){
+                    #{managedBean.removeBoardValues(25)}
+                }
+                document.getElementById("table").style.visibility = 'visible';
+                document.getElementById("timer").style.visibility = 'visible';
+                document.getElementById("submitButton").style.visibility = 'visible';
+                document.getElementById("startButton").style.visibility = 'hidden';
+                startTimer()
+
+            }
+
+
             function checkSudoku(form) {
                 let userBoard = [
                     [
@@ -670,23 +899,59 @@
                         #{managedBean.solvedBoard[8][7]},
                         #{managedBean.solvedBoard[8][8]}
                     ]
-                ];
-                let correct = 0;
+                ]
+                let correct = 0
                 for (let i = 0; i &lt; 9; i++) {
                     for (let j = 0; j &lt; 9; j++) {
                         if(userBoard[i][j] == solvedBoard[i][j]) {
-                            correct = correct + 1;
+                            correct = correct + 1
                         }
                     }
                 }
+
                 if(correct == 81) {
-                    alert("You have solved the Sudoku correctly!");
+                    stopTimer();
+                    alert("You have solved the Sudoku correctly! Your time was: " + h1.toString());
                 } else if(correct == 80) {
                     alert("There is 1 mistake in your solution of the Sudoku");
                 } else{
                     alert("There are "+(81-correct)+" mistakes in your solution of the Sudoku");
                 }
+
             }
+
+
+            var h1 = document.getElementsByTagName('h1')[0], seconds = 0, minutes = 0, hours = 0, t;
+            function add() {
+                seconds++;
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes >= 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+                h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+                timer();
+            }
+
+            function timer() {
+                t = setTimeout(add, 1000);
+            }
+            timer();
+
+            function stopTimer() {
+                clearTimeout(t);
+            }
+            function startTimer() {
+                h1.textContent = "00:00:00";
+                seconds = 0;
+                minutes = 0;
+                hours = 0;
+            }
+
+
         </script>
     </f:view>
 </h:body>

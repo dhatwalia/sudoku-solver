@@ -7,6 +7,19 @@ import java.util.Random;
 @ManagedBean(name="managedBean")
 @ViewScoped
 public class LakeheadSudoku implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+
     private int[][] userBoard = new int[9][9];
 
     private int[][] solvedBoard = new int[9][9];
@@ -14,7 +27,7 @@ public class LakeheadSudoku implements Serializable {
     public LakeheadSudoku() {
         generateSudoku(0,0);
         copyBoard();
-        removeBoardValues(25);
+        //removeBoardValues(25);
     }
 
     public int[][] getUserBoard() {
@@ -37,7 +50,7 @@ public class LakeheadSudoku implements Serializable {
     {
         int nextX = x;
         int nextY = y;
-        int[] possibleValues = {1,2,3,4,5,6,7,8,9};
+        int [] possibleValues = {1,2,3,4,5,6,7,8,9};
         Random random = new Random();
         int temp = 0;
         int current = 0;
