@@ -8,8 +8,8 @@ import java.util.Random;
 @ViewScoped
 public class LakeheadSudoku implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    public String data = "1";
+   // private static final long serialVersionUID = 1L;
+    public String data = "54";
 
     public String getData() {
         return data;
@@ -27,7 +27,7 @@ public class LakeheadSudoku implements Serializable {
     public LakeheadSudoku() {
         generateSudoku(0,0);
         copyBoard();
-        //removeBoardValues(25);
+        removeBoardValues(Integer.parseInt(data));
     }
 
     public int[][] getUserBoard() {
@@ -129,6 +129,25 @@ public class LakeheadSudoku implements Serializable {
 
     public void removeBoardValues(int h)    // h is the holes to be made
     {
+        double remS = 81;               // remaining squares
+        double remH = (double)h;        // remaining holes
+
+        // Make holes in the userBoard
+        for(int i=0;i<9;i++)
+            for(int j=0;j<9;j++) {
+                double chance = remH/remS;
+                if(Math.random() <= chance)
+                {
+                    userBoard[i][j] = 0;
+                    remH--;
+                }
+                remS--;
+            }
+    }
+
+    public void removeBoardValues()    // h is the holes to be made
+    {
+        int h = 25;
         double remS = 81;               // remaining squares
         double remH = (double)h;        // remaining holes
 

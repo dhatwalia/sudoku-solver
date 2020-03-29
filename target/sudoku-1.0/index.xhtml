@@ -17,11 +17,14 @@
     <div align="center">
         <h1 id="timer" style="visibility: hidden">00:00:00</h1>
         <h3>Please select a difficulty</h3>
-        <h:selectOneMenu value = "#{managedBean.data}">
-            <f:selectItem itemValue = "1" itemLabel = "Easy" />
-            <f:selectItem itemValue = "2" itemLabel = "Moderate" />
-            <f:selectItem itemValue = "3" itemLabel = "Difficult" />
+        <h:form id="difficultyForm">
+        <h:selectOneMenu value = "#{managedBean.data}" id="difficulty">
+            <f:selectItem itemValue = "51" itemLabel = "Easy" />
+            <f:selectItem itemValue = "54" itemLabel = "Moderate" />
+            <f:selectItem itemValue = "56" itemLabel = "Difficult" />
         </h:selectOneMenu>
+        </h:form>
+
         <input type="button" id="startButton" value="Play" style="visibility:visible" onClick="startGame(this.form);" />
     </div>
 
@@ -685,20 +688,14 @@
                     ]
                 ]
                 */
-                if (true){
-                    #{managedBean.removeBoardValues(25)}
-                }
+
+
                 document.getElementById("table").style.visibility = 'visible';
                 document.getElementById("timer").style.visibility = 'visible';
                 document.getElementById("submitButton").style.visibility = 'visible';
-                document.getElementById("startButton").style.visibility = 'hidden';
+                //document.getElementById("startButton").style.visibility = 'hidden';
                 startTimer()
-                /*  for (let i = 0; i &lt; 9; i++) {
-                      for (let j = 0; j &lt; 9; j++) {
-                          count = count + 1
-                      }
-                  }
-                  */
+
             }
 
 
