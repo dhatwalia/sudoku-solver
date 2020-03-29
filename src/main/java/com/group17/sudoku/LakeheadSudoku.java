@@ -20,7 +20,7 @@ public class LakeheadSudoku implements Serializable {
     }
 
 
-    private int[][] userBoard = new int[9][9];
+    private String[][] userBoard = new String[9][9];
 
     private int[][] solvedBoard = new int[9][9];
 
@@ -30,11 +30,11 @@ public class LakeheadSudoku implements Serializable {
         removeBoardValues(Integer.parseInt(data));
     }
 
-    public int[][] getUserBoard() {
+    public String[][] getUserBoard() {
         return userBoard;
     }
 
-    public void setUserBoard(int[][] userBoard) {
+    public void setUserBoard(String[][] userBoard) {
         this.userBoard = userBoard;
     }
 
@@ -124,7 +124,10 @@ public class LakeheadSudoku implements Serializable {
         // Copy contents of solvedBoard to userBoard
         for(int i=0;i<9;i++)
             for(int j=0;j<9;j++)
-                userBoard[i][j] = solvedBoard[i][j];
+                if(solvedBoard[i][j] != 0)
+                    userBoard[i][j] = ""+solvedBoard[i][j];
+                else
+                    userBoard[i][j] = "";
     }
 
     public void removeBoardValues(int h)    // h is the holes to be made
@@ -138,26 +141,7 @@ public class LakeheadSudoku implements Serializable {
                 double chance = remH/remS;
                 if(Math.random() <= chance)
                 {
-                    userBoard[i][j] = 0;
-                    remH--;
-                }
-                remS--;
-            }
-    }
-
-    public void removeBoardValues()    // h is the holes to be made
-    {
-        int h = 25;
-        double remS = 81;               // remaining squares
-        double remH = (double)h;        // remaining holes
-
-        // Make holes in the userBoard
-        for(int i=0;i<9;i++)
-            for(int j=0;j<9;j++) {
-                double chance = remH/remS;
-                if(Math.random() <= chance)
-                {
-                    userBoard[i][j] = 0;
+                    userBoard[i][j] = "";
                     remH--;
                 }
                 remS--;
