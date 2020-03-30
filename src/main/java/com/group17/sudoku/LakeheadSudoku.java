@@ -9,7 +9,7 @@ import java.util.Random;
 public class LakeheadSudoku implements Serializable {
 
    // private static final long serialVersionUID = 1L;
-    public String data = "0";
+    public String data = "1";
 
     public String getData() {
         return data;
