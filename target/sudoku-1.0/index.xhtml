@@ -16,7 +16,7 @@
 
     <div align="center">
         <h1 id="timer" style="visibility: hidden">00:00:00</h1>
-        <h3>Please select a difficulty</h3>
+        <h3 id="h3" style="visibility: visible">Please select a difficulty</h3>
         <h:form id="difficultyForm">
         <h:selectOneMenu value = "#{managedBean.data}" id="difficulty">
             <f:selectItem itemValue = "51" itemLabel = "Easy" />
@@ -693,7 +693,10 @@
                 document.getElementById("table").style.visibility = 'visible';
                 document.getElementById("timer").style.visibility = 'visible';
                 document.getElementById("submitButton").style.visibility = 'visible';
-                //document.getElementById("startButton").style.visibility = 'hidden';
+                document.getElementById("startButton").style.visibility = 'hidden';
+                document.getElementById("difficultyForm").style.visibility = 'hidden';
+                document.getElementById("h3").style.visibility = 'hidden';
+
                 startTimer()
 
             }
@@ -913,7 +916,7 @@
 
                 if(correct == 81) {
                     stopTimer();
-                    alert("You have solved the Sudoku correctly! Your time was: " + h1.toString());
+                    alert("You have solved the Sudoku correctly! Your time was: " + h1);
                 } else if(correct == 80) {
                     alert("There is 1 mistake in your solution of the Sudoku");
                 } else{
